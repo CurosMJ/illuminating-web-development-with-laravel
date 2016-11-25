@@ -14,3 +14,17 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/set', function () {
+    Session::set('last_seen', time());
+    return ["session state" => Session::all()];
+});
+
+Route::get('/flush', function () {
+    Session::flush();
+    return ["session state" => Session::all()];
+});
+
+Route::get('/get', function () {
+    return ["all" => Session::all(), "last_seen" => Session::get('last_seen')];
+});
