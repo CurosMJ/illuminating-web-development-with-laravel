@@ -17,12 +17,12 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'users'], function () {
     Route::get('/add', function () {
-
-        App\User::create([
-            'name' => Request::get('name'),
-            'email' => Request::get('email'),
-            'password' => Request::get('password'),
-        ]);
+        
+        $user = new \App\User();
+        $user->name = Request::get('name');
+        $user->email = Request::get('email');
+        $user->password = Request::get('password');
+        $user->save(); // Persist to DB
 
         return "inserted";
     });
