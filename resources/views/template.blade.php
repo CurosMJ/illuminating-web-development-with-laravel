@@ -46,7 +46,7 @@
         <hr />
         <h3>
             <?php
-                if (count($name) % 2 == 0)
+                if (strlen($name) % 2 == 0)
                     echo "Your name has even characters.";
                 else
                     echo "Your name has odd characters.";
@@ -54,7 +54,7 @@
         </h3>
         <h3>
             <!-- Blade style if -->
-            @if(count($name) % 2 == 0)
+            @if(strlen($name) % 2 == 0)
                 Your name has even characters
             @else
                 Your name has odd characters
