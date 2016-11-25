@@ -21,10 +21,24 @@ Route::group(['prefix' => 'users'], function () {
         $user = new \App\User();
         $user->name = Request::get('name');
         $user->email = Request::get('email');
-        $user->password = Request::get('password');
+        $user->password = Hash::make(Request::get('password'));
         $user->save(); // Persist to DB
 
         return "inserted";
+    });
+
+    Route::get('/login', function () {
+
+        if (Auth::attempt(['email' => Request::get('email'), 'password' => Request::get('password')])) {
+            return "Auth Successful";
+        } else {
+            return "Invalid credentials";
+        }
+    });
+
+    Route::get('/me', function () {
+
+        return ["check" => Auth::check(), "user" => Auth::user()];
     });
 
     Route::get('/list', function () {
