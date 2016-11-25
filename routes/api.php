@@ -13,6 +13,16 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:api');
+// Simple GET route, will return JSON
+Route::get('/hello/{name?}', function ($name = "Guest") {
+    return ["data" => "hello $name"];
+});
+
+Route::post('/hello', function () {
+    return ["data" => "hello world by post"];
+});
+
+// This route will tell you what method was used to call it
+Route::any('/test', function (Request $request) {
+    return ["data" => "This endpoint was called with : ".$request->method()];
+});
