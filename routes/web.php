@@ -14,3 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('check', function () {
+    
+    // Look into app/Providers/AppServiceProvider.php register method
+    
+    $gdg = App::make('gdg');
+    
+    return ["name" => $gdg->fullName(), "website" => $gdg->website()];
+});
