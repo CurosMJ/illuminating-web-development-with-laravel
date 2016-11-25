@@ -30,12 +30,10 @@ Route::group(['prefix' => 'users'], function () {
     Route::get('/list', function () {
 
         $names = DB::connection()->table('users')->select(['name'])->get();
-        print_r($names);
 
         $all = DB::connection()->table('users')->get();
-        print_r($all);
 
-        return "list complete";
+        return ["names" => $names->toArray(), "all" => $all->toArray()];
     });
 
 
@@ -45,10 +43,8 @@ Route::group(['prefix' => 'users'], function () {
 
         $stmt = DB::connection()->table('users')->where('name', $search);
         $all = $stmt->get();
-        print_r("SQL Query : \n".$stmt->toSql()."\n\n\n");
-        print_r($all);
 
-        return "search complete";
+        return ["query" => $stmt->toSql(), "all" => $all->toArray()];
     });
 
 
