@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('template/{name}', function ($name) {
+    // See resources/views/template.blade.php
+    $nullVar = null;
+   return view('template', ['name' => $name, 'nullVar' => $nullVar]);
+});
