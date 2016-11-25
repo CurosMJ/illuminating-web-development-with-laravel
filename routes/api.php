@@ -29,4 +29,17 @@ Route::any('/method-test', function (Request $request) {
     return ["data" => "This endpoint was called with : ".$request->method()];
 });
 
+// Using Controllers to house business logic
 Route::get('test/{who}', 'TestController@test');
+
+// Use route groups to club together similar requests
+Route::group(['prefix' => 'pet'], function () {
+
+    Route::get('dog', function () {
+        return "my doggie !";
+    });
+
+    Route::get('cat', function () {
+        return "my kitten !";
+    });
+});
