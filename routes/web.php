@@ -16,12 +16,12 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'users'], function () {
-    Route::get('/add', function (\Illuminate\Http\Request $request) {
+    Route::get('/add', function () {
 
-        DB::connection()->table('users')->insert([
-            'name' => $request->get('name'),
-            'email' => $request->get('email'),
-            'password' => $request->get('password')
+        App\User::create([
+            'name' => Request::get('name'),
+            'email' => Request::get('email'),
+            'password' => Request::get('password'),
         ]);
 
         return "inserted";
@@ -29,32 +29,26 @@ Route::group(['prefix' => 'users'], function () {
 
     Route::get('/list', function () {
 
-        $names = DB::connection()->table('users')->select(['name'])->get();
-        print_r($names);
-
-        $all = DB::connection()->table('users')->get();
-        print_r($all);
-
-        return "list complete";
+        return App\User::all()->toArray();
     });
 
+
+    Route::get('/find/{id}', function ($id) {
+
+        return App\User::find($id)->toArray();
+    });
 
     Route::get('/search', function () {
 
         $search = Request::get('search');
 
-        $stmt = DB::connection()->table('users')->where('name', $search);
-        $all = $stmt->get();
-        print_r("SQL Query : \n".$stmt->toSql()."\n\n\n");
-        print_r($all);
-
-        return "search complete";
+        return App\User::where('name', $search)->get()->toArray();
     });
 
 
     Route::get('/delete', function () {
 
-        DB::connection()->table('users')->delete();
+        App\User::where(1, 1)->delete();
 
         return "deleted";
     });
